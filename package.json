@@ -1,0 +1,30 @@
+{
+  "name": "mongo-changestreams-backend",
+  "version": "1.0.0",
+  "description": "tests with change streams",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && npx tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "insertUsers": "ts-node src/scripts/populateUsersCollection.ts",
+    "removeUsers": "ts-node src/scripts/emptyUsersCollection.ts",
+    "createAddressCollections": "ts-node src/scripts/createAddressCollections.ts",
+    "dropAddressCollection": "ts-node src/scripts/dropAddressCollection.ts",
+    "dropUsersCollection": "ts-node src/scripts/dropUsersCollection.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^4.12.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.11.9",
+    "concurrently": "^7.5.0",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.3"
+  }
+}
