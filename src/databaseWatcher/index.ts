@@ -1,22 +1,10 @@
-import {
-  Db,
-  ChangeStreamInsertDocument,
-  ChangeStreamUpdateDocument,
-  ChangeStreamReplaceDocument,
-  ChangeStreamDeleteDocument,
-} from "mongodb";
+import { Db, ChangeStreamDocument } from "mongodb";
 
 //const triggerPipeline = [];
 
-type Event =
-  | ChangeStreamInsertDocument
-  | ChangeStreamUpdateDocument
-  | ChangeStreamReplaceDocument
-  | ChangeStreamDeleteDocument;
-
 export default (db: Db) => {
   const changStream = db.watch([]);
-  changStream.on("change", (event: Event) => {
+  changStream.on("change", (event: ChangeStreamDocument) => {
     try {
       console.log("database event", event);
     } catch (error) {

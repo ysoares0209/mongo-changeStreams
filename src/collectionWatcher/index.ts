@@ -1,23 +1,21 @@
 import {
   Db,
   ChangeStreamInsertDocument,
-  ChangeStreamUpdateDocument,
-  ChangeStreamReplaceDocument,
   ChangeStreamDeleteDocument,
+  ChangeStreamInvalidateDocument,
 } from "mongodb";
 
 const triggerPipeline = [
   {
     $match: {
-      operationType: { $in: ["insert", "delete"] },
+      operationType: { $in: ["insert", "delete", "invalidate"] },
     },
   },
 ];
 
 type Event =
   | ChangeStreamInsertDocument
-  | ChangeStreamUpdateDocument
-  | ChangeStreamReplaceDocument
+  | ChangeStreamInvalidateDocument
   | ChangeStreamDeleteDocument;
 
 export default (db: Db) => {
@@ -39,12 +37,11 @@ export default (db: Db) => {
         const { documentKey } = event;
         console.log(`deleting user with _id ${documentKey._id}`);
       }
+      if (operationType === "invalidate") {
+        console.log(`Invalidate event detected...`);
+      }
     } catch (error) {
       console.log("collection error", error);
     }
-  });
-
-  changeStream.on("close", () => {
-    console.log("collection stream got closed");
   });
 };
