@@ -22,8 +22,8 @@ const startServer = async () => {
     const usersDb = client.db("users");
 
     collectionWatcher(usersDb);
-    databaseWatcher(usersDb);
-    clientWatcher(client);
+    /* databaseWatcher(usersDb); */
+    /* clientWatcher(client); */
   } catch (error) {
     console.log(`Error starting server...`, error);
   }
